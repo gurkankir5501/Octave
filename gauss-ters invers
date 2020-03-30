@@ -1,0 +1,326 @@
+
+
+A=[];
+B=[];
+C=[];
+temp=[];
+temp2=[];
+matrisBoyutu=0;
+function matrisTipi()
+ 
+  
+  printf("Kac bilinmeyenli denklem girmek istiyorsunuz :");
+  x=input("");
+  
+  matrisBoyutu=x;
+    A=zeros(x);
+    B=zeros(x,1);
+    C=eye(x);
+    temp=zeros(x,1);
+    temp2=zeros(x);
+  for m=1:x
+ 
+    for n=1:x 
+    
+      printf("%d. denklemin %d. katsayi degerini giriniz : " ,m,n);
+      sayiA=input("");
+     
+      A(m,n)=sayiA;
+      temp2(m,n)=sayiA;
+    end
+    printf("%d. denklemin sonucu giriniz :" ,m);
+    sayiB=input("");
+    B(m,1)=sayiB;
+    temp(m,1)=sayiB;
+  end
+
+disp("GAUSS JORDAN YONTEMI ILE COZUM : ");  
+
+printf("A matrisi "); 
+disp("");
+disp(A);
+printf("B vektoru ");
+disp("");
+disp(B);
+
+asama=1;
+  
+for s=1:matrisBoyutu-1;
+   
+     for m=s:matrisBoyutu
+    
+       if A(s,s) == 0
+          
+           for n=s:matrisBoyutu
+         
+             A(s,n)=A(s,n)+A(m+1,n);
+           endfor
+       
+            B(m,1)=B(m,1)+B(m+1,1);
+      
+        elseif A(s,s) ==1
+        
+            break;
+       else
+           for n=s+1:matrisBoyutu
+         
+             A(s,n)=A(s,n)/A(s,s);
+          endfor
+           B(s,1)=B(s,1)/A(s,s); 
+          A(s,s)=A(s,s)/A(s,s);
+        
+       end
+     endfor
+  
+    printf("%d",asama);
+    disp(". asama");
+    asama=asama+1;
+    
+    printf("A matrisi ");
+    disp("");
+    disp(A);
+    printf("B vektoru ");
+    disp("");
+    disp(B);
+    
+  
+      for m=s+1:matrisBoyutu
+    
+        k=A(m,s)/A(s,s);
+    
+       for n=s:matrisBoyutu
+    
+         A(m,n)=A(m,n) + A(s,n)*-k;
+  
+       endfor
+        B(m,1)=B(m,1)+B(s,1)*-k;
+    
+      endfor
+  
+    printf("%d",asama);
+    disp(". asama");
+    asama=asama+1;  
+
+    printf("A matrisi ");
+    disp("");
+    disp(A);
+    printf("B vektoru ");
+    disp("");
+    disp(B);   
+      
+     
+endfor
+  
+B(matrisBoyutu,1)=B(matrisBoyutu,1)/A(matrisBoyutu,matrisBoyutu);
+A(matrisBoyutu,matrisBoyutu)=A(matrisBoyutu,matrisBoyutu)/A(matrisBoyutu,matrisBoyutu);
+
+    printf("%d",asama);
+    disp(". asama");
+    asama=asama+1; 
+
+    printf("A matrisi ");
+    disp("");
+    disp(A);
+    printf("B vektoru ");
+    disp("");
+    disp(B);   
+    
+    
+   m=matrisBoyutu;
+   
+while m>1   
+   
+   n=1;
+   while m>n
+     
+     k=A(m-n,m)/A(m,m);
+           
+     A(m-n,m)=A(m-n,m)+A(m,m)*-k;
+     
+      B(m-n,1)=B(m-n,1)+B(m,1)*-k;
+      n=n+1;
+    endwhile 
+    m=m-1;
+endwhile    
+
+    printf("%d",asama);
+    disp(". asama");
+    asama=asama+1; 
+
+    printf("A matrisi ");
+    disp("");
+    disp(A);
+    printf("B vektoru ");
+    disp("");
+    disp(B);    
+    
+    m=1
+    while matrisBoyutu >= m
+      
+      printf("%d. bilinmeyen degerimiz : %d dir. ",m,B(m,1));
+      disp("");
+      m=m+1;
+    endwhile
+    
+disp("TERS INVERS YONTEMI ILE COZUM ");    
+    B=temp;
+    A=temp2;
+   asama=1;
+    
+    printf("%d",asama);
+    disp(". asama");
+    asama=asama+1;
+    
+    printf("A matrisi ");
+    disp("");
+    disp(A);
+    printf("C matrisi ");
+    disp("");
+    disp(C);
+  
+for s=1:matrisBoyutu-1;
+   
+     for m=s:matrisBoyutu
+    
+       if A(s,s) == 0
+          
+           for n=s:matrisBoyutu
+         
+             A(s,n)=A(s,n)+A(m+1,n);
+             C(s,n)=C(s,n)+C(m+1,n);
+           endfor
+      
+        elseif A(s,s) ==1
+        
+            break;
+       else
+           for n=s+1:matrisBoyutu
+         
+             A(s,n)=A(s,n)/A(s,s);
+             
+          endfor
+          for t=1:matrisBoyutu
+            C(s,t)=C(s,t)/A(s,s); 
+          endfor
+          A(s,s)=A(s,s)/A(s,s);
+        
+       end
+     endfor
+  
+    printf("%d",asama);
+    disp(". asama");
+    asama=asama+1;
+    
+    printf("A matrisi ");
+    disp("");
+    disp(A);
+    printf("C matrisi ");
+    disp("");
+    disp(C);
+    
+  
+      for m=s+1:matrisBoyutu
+    
+        k=A(m,s)/A(s,s);
+    
+       for n=s:matrisBoyutu
+    
+         A(m,n)=A(m,n) + A(s,n)*-k;
+         C(m,n)=C(m,n)+C(s,n)*-k;
+         
+       endfor
+        a=1;
+        f=s;
+        while f>a
+            C(m,f-a)=C(m,f-a)+C(s,f-a)*-k;
+            a=a+1;
+         endwhile
+        endfor
+  
+    printf("%d",asama);
+    disp(". asama");
+    asama=asama+1;  
+
+    printf("A matrisi ");
+    disp("");
+    disp(A);
+    printf("C matrisi ");
+    disp("");
+    disp(C);   
+      
+     
+endfor
+  
+      t=1;
+    while matrisBoyutu>=t
+      C(matrisBoyutu,t)=C(matrisBoyutu,t)/A(matrisBoyutu,matrisBoyutu);
+      t=t+1
+    endwhile
+A(matrisBoyutu,matrisBoyutu)=A(matrisBoyutu,matrisBoyutu)/A(matrisBoyutu,matrisBoyutu);
+
+    printf("%d",asama);
+    disp(". asama");
+    asama=asama+1; 
+
+    printf("A matrisi ");
+    disp("");
+    disp(A);
+    printf("C matrisi ");
+    disp("");
+    disp(C);   
+    
+    
+   m=matrisBoyutu;
+   
+while m>1   
+   
+   n=1;
+   while m>n
+     
+     k=A(m-n,m)/A(m,m);
+           
+     A(m-n,m)=A(m-n,m)+A(m,m)*-k;
+     
+     r=1;
+     while m>=r
+       
+       C(m-n,r)=C(m-n,r)+C(m,r)*-k;
+       r=r+1;
+       endwhile
+      n=n+1;
+    endwhile 
+    m=m-1;
+endwhile    
+
+    printf("%d",asama);
+    disp(". asama");
+    asama=asama+1; 
+
+    printf("A matrisi ");
+    disp("");
+    disp(A);
+    printf("C matrisi");
+    disp("");
+    disp(C);    
+    
+    m=1
+    while matrisBoyutu >= m
+      
+      n=1;
+      deger=0;
+      while matrisBoyutu>=n
+        deger=deger+(C(m,n)*temp(n,1));
+        n=n+1;
+      endwhile
+      printf("%d. bilinmeyen degerimiz : %d dir ",m,deger);
+      m=m+1;
+    endwhile 
+endfunction
+
+
+
+
+matrisTipi();
+
+
+
